@@ -23,7 +23,7 @@ def timer(chat_id):
 
 @bot.message_handler(commands=['menu'])
 def start_message(message):
-    bot.send_message(message.chat.id, reply_markup=keyboard1)
+    bot.send_message(message.chat.id, 'Выбери', reply_markup=keyboard1)
 
 
 @bot.message_handler(commands=['tost'])

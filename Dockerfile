@@ -3,6 +3,6 @@ ENV PORT 8081
 COPY ./requirements.txt /bot/requirements.txt
 WORKDIR /bot
 RUN pip install -r requirements.txt
-COPY ./AlkoBot /AlkoBot
+COPY ./bot /bot
 ENTRYPOINT ["python"]
-CMD ["./bot/alkobot.py"]
+CMD ["alkobot.py"]
