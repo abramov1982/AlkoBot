@@ -1,5 +1,5 @@
 import telebot
-import parcer
+import parcer.parcer as parcer
 import json
 import time
 
@@ -7,14 +7,23 @@ with open('token.json', 'r') as f:
     token = json.load(f)['token']
 
 bot = telebot.TeleBot(token)
-
 time_list = []
+
+
+keyboard1 = telebot.types.ReplyKeyboardMarkup(True, True)
+keyboard1.row('/bash', '/ibash')
+keyboard1.row('/tost', '/anekdot')
 
 
 def timer(chat_id):
     time_list.append(chat_id)
     time.sleep(5)
     time_list.remove(chat_id)
+
+
+@bot.message_handler(commands=['menu'])
+def start_message(message):
+    bot.send_message(message.chat.id, reply_markup=keyboard1)
 
 
 @bot.message_handler(commands=['tost'])
