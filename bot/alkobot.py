@@ -1,5 +1,5 @@
 import telebot
-import bot.parcer as parcer
+import parcer
 import json
 import time
 
