@@ -1,35 +1,48 @@
 import telebot
+import parcer
+import json
+import time
 
-bot = telebot.TeleBot('995067184:AAHij-PI4XB28LwRXDrrMQqKZiGY7CF7vEs')
+with open('token.json', 'r') as f:
+    token = json.load(f)['token']
 
-import requests
-from bs4 import BeautifulSoup
+bot = telebot.TeleBot(token)
 
-
-def rzhunemogu_api(type):
-    const_url = 'http://rzhunemogu.ru/Rand.aspx?CType='
-
-    r = requests.get(const_url + str(type))
-
-    soup = BeautifulSoup(r.text, features="lxml")
-    data = soup.find('content').text
-    return data
+time_list = []
 
 
-
-@bot.message_handler(commands=['start'])
-def start_message(message):
-    bot.send_message(message.chat.id, 'Hallo')
+def timer(chat_id):
+    time_list.append(chat_id)
+    time.sleep(5)
+    time_list.remove(chat_id)
 
 
 @bot.message_handler(commands=['tost'])
 def start_message(message):
-    bot.send_message(message.chat.id, rzhunemogu_api(6))
+    if message.chat.id not in time_list:
+        bot.send_message(message.chat.id, parcer.rzhunemogu_api(6))
+        timer(message.chat.id)
 
 
 @bot.message_handler(commands=['anekdot'])
 def start_message(message):
-    bot.send_message(message.chat.id, rzhunemogu_api(11))
+    if message.chat.id not in time_list:
+        bot.send_message(message.chat.id, parcer.rzhunemogu_api(11))
+        timer(message.chat.id)
+
+
+@bot.message_handler(commands=['bash'])
+def start_message(message):
+    if message.chat.id not in time_list:
+        bot.send_message(message.chat.id, parcer.bash_api())
+        timer(message.chat.id)
+
+
+@bot.message_handler(commands=['ibash'])
+def start_message(message):
+    if message.chat.id not in time_list:
+        bot.send_message(message.chat.id, parcer.ibash_api())
+        timer(message.chat.id)
 
 
 bot.polling()
