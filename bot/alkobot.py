@@ -8,6 +8,7 @@ with open('token.json', 'r') as f:
 
 bot = telebot.TeleBot(token)
 time_list = []
+chats_ids = [-1001206122362, -1001409669768]
 
 
 keyboard1 = telebot.types.ReplyKeyboardMarkup(True, True)
@@ -51,6 +52,13 @@ def start_message(message):
 def start_message(message):
     if message.chat.id not in time_list:
         bot.send_message(message.chat.id, parcer.ibash_api())
+        timer(message.chat.id)
+
+
+@bot.message_handler(regexp='^[т][о]*[л][я]*?[н]?[и]?[к]?[, ]?[ ]?[ст][ко][алс][жкт][ину]?[ий]?\s?[т]?[о]?[с]?[т]?$')
+def handle_message(message):
+    if message.chat.id in chats_ids:
+        bot.send_message(message.chat.id, parcer.rzhunemogu_api(6))
         timer(message.chat.id)
 
 
