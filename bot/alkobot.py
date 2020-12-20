@@ -22,7 +22,7 @@ def timer(chat_id):
     time_list.remove(chat_id)
 
 
-@bot.message_handler(commands=['menu'])
+@bot.message_handler(commands=['start'])
 def start_message(message):
     bot.send_message(message.chat.id, 'Выбери', reply_markup=keyboard1)
 
